@@ -1,8 +1,6 @@
 # Reproduciabilty Exercise based on Found Data
 
-## "Juvenile Groundfish Assemblages in the California Current" - (Gasbarro et al., 2025)
-
-### _Repo for 2025 Honours Deliverable_
+##### "Juvenile Groundfish Assemblages in the California Current" - (Gasbarro et al., 2025)
 
 ## *Use*
 
@@ -10,6 +8,17 @@
 - Workflow Automation
 - Data Analysis reproducibility Exercise
 
+## How to use this repo
+
+#### !First things first!
+##### *I DON'T OWN THE DATA* - _refer to the end of this document to find the original source and cute that if you use the data for your own work_
+
+1. Download the YOYGroundfishBiodiv_Data.csv
+2. Download the R Script - Analysis.R
+  -open this and import the YOYGroundfishBiodiv_Data.csv
+  - Remember to change your working directory to wherever you stored your files
+3. Run the R code
+  
 # Original Data Source and licensing Conditions
 
 #### *licensing*
