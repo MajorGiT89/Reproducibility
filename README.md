@@ -8,7 +8,9 @@
 - Workflow Automation
 - Data Analysis reproducibility Exercise
 
-# Original Data Source and Liscencing Conditions
+# Original Data Source and licensing Conditions
+
+#### _Taken from original Source_
 
 Copyright © 2022 Fish, Wolf, Smeltz, Harris and Planas. This is an open-access article distributed under the terms of the Creative Commons Attribution License (CC BY). The use, distribution or reproduction in other forums is permitted, provided the original author(s) and the copyright owner(s) are credited and that the original publication in this journal is cited, in accordance with accepted academic practice. No use, distribution or reproduction is permitted which does not comply with these terms.
 
