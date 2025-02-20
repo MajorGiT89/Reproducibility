@@ -4,7 +4,7 @@ setwd("C:/Users/Admin/Documents/UCT_2025/GIT/Honours-Project")
 
 ### !!! NOTE: use Alt + O to close all folded code sections for easy navigation !!! (use Alt + shft + O to open all) ###
 
-#1 Load Packages ---------------------------------------------------------
+#1 Load Packages---------------------------------------------------------
 
 #Load
 
@@ -13,24 +13,85 @@ library("rio")
 library("visreg")
 library("gridExtra")
 
-
-
 #2 Licencing and Referencing of Source Data ----------------------------------------
 
-#Copyright © 2022 Fish, Wolf, Smeltz, Harris and Planas. This is an open-access article distributed under the terms of the Creative Commons Attribution License (CC BY). The use, distribution or reproduction in other forums is permitted, provided the original author(s) and the copyright owner(s) are credited and that the original publication in this journal is cited, in accordance with accepted academic practice. No use, distribution or reproduction is permitted which does not comply with these terms.
+#licensing
 
-#Reproductive Biology of Female Pacific Halibut (Hippoglossus stenolepis) in the Gulf of Alaska
-#T. Fish, N. Wolf, T. S. Smeltz, B. P. Harris and J. V. Planas
-#Frontiers in Marine Science 2022 Vol. 9 
-#DOI: 10.3389/fmars.2022.801759
-#https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2022.801759
+#Data provided under Creative Commons: Attribution 4.0 International
+
+#Citation for Data Source
+
+#Composition and Functional Diversity of Juvenile Groundfish Assemblages in the California Current
+#R. Gasbarro, J. A. Santora, M. Cimino, A. Schonfeld, S. J. Bograd, E. L. Hazen, et al.
+#Journal of Biogeography 2025 
+#DOI: 10.1111/jbi.15108
+#https://dx.doi.org/10.1111/jbi.15108
 
 
 
 #3 Load Data -------------------------------------------------
 
-odat <- import("")
+ #Use of Rio package
+
+odat <- import("YOYGroundfishBiodiv_Data.csv")
 
 #4 Data Cleaning Process --------------------------------------------------------------
 
+#Re-formatiing into Tidy format
+
+#1 - getting the names of the fish spedcies
+
+names <- c(colnames(odat[4:49]))
+
+species_columns <- c("WOLF_EEL", "SABLEFISH", "ARROWTOOTH_FLOUNDER", "PACIFIC_SANDDAB", 
+                     "SPECKLED_SANDDAB", "SCULPIN", "REX_SOLE", "GREENLING", "SLENDER_SOLE", 
+                     "PACIFIC_HAKE", "DOVER_SOLE", "LINGCOD", "PAINTED_GREENLING", 
+                     "RIGHT_EYED_FLATFISH", "TURBOT", "SAND_SOLE", "CABEZON", 
+                     "BROWN_ROCKFISH", "DARKBLOTCHED_ROCKFISH", "CALICO_ROCKFISH", 
+                     "SPLITNOSE_ROCKFISH", "GREENSTRIPED_ROCKFISH", "WIDOW_ROCKFISH", 
+                     "YELLOWTAIL_ROCKFISH", "CHILIPEPPER", "SQUARESPOT_ROCKFISH", 
+                     "SHORTBELLY_ROCKFISH", "COWCOD", "BLACK_ROCKFISH", 
+                     "BLACKGILL_ROCKFISH", "BLUE_ROCKFISH", "BOCACCIO", "CANARY_ROCKFISH", 
+                     "YELLOWMOUTH_ROCKFISH", "YELLOWEYE_ROCKFISH", "BANK_ROCKFISH", 
+                     "STRIPETAIL_ROCKFISH", "HALFBANDED_ROCKFISH", "OLIVE_ROCKFISH", 
+                     "PYGMY_ROCKFISH", "SHARPCHIN_ROCKFISH", "ROCKFISH", 
+                     "ROSY_ROCKFISH_GROUP", "PACIFIC_TOMCOD", "COPPER_ROCKFISH_GROUP", 
+                     "IRISH_LORD")
+
+#2 Removing the first Column - redundant
+# and setting data into long format so that the names of the fish don't appear as column headings - new variable "Species"
+
+odat.long <- odat %>%
+  select(-YEAR_STATION) %>%
+  pivot_longer(
+    cols = all_of(species_columns),
+    names_to = "Species",
+    values_to = "Taxon_CPUE(log + 1)"
+  )
+
+
+
+# GROUPING DATA with Tidyverse functions ----------------------------------
+
+
+qw <- odat.long %>% 
+  filter(Species == "WOLF_EEL", YEAR == c("2023","1990")) %>%
+  select(YEAR,STATION,AREA,cpue) %>%
+  mutate(CPUE.Mean.deviation = cpue - mean(cpue, na.rm = TRUE))
+
+#Species diversity per area for 1990 v 2023
+
+Sd.23 <- odat.long %>% 
+  filter(YEAR == c("2023")) %>%
+  select(AREA,cpue,sdiv) %>%
+  mutate(Dev.MeanSPdiv = sdiv - mean(sdiv) )%>%
+  group_by(AREA)%>%
+  arrange(desc(Dev.MeanSPdiv))
+
+Sd.90 <- odat.long %>% 
+  filter(YEAR == c("1990")) %>%
+  select(AREA,cpue,sdiv) %>%
+  mutate(Dev.MeanSPdiv = sdiv - mean(sdiv) )%>%
+  group_by(AREA)%>%
+  arrange(desc(Dev.MeanSPdiv))
 
