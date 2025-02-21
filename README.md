@@ -39,7 +39,7 @@ DOI: 10.1111/jbi.15108
 
 https://dx.doi.org/10.1111/jbi.15108
 
-### *I have added the original publication where the data was sourced from in the file list*
+### *I have included the original publication where the data was sourced from in the file list*
 
 _Open this repo on a virtual machine_
 
