@@ -42,6 +42,4 @@ https://dx.doi.org/10.1111/jbi.15108
 ### *I have added the original publication where the data was sourced from in the file list*
 
 
-_link to Binder_ Follow the instructions on the website to run the R code on a virtual machine (May not work due to issues on their side)
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/github/repo/master) 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/github/repo/master) _link to Binder_ Follow the instructions on the website to run the R code on a virtual machine (May not work due to issues on their side)
