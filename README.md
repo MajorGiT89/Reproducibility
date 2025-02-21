@@ -42,4 +42,4 @@ https://dx.doi.org/10.1111/jbi.15108
 ### *I have added the original publication where the data was sourced from in the file list*
 
 _Open this repo on a virtual machine_
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MajorGiT89/https://github.com/MajorGiT89/VTLNIC004_Working_Reproduciably/master) 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MajorGiT89/https://github.com/MajorGiT89/https://github.com/MajorGiT89/VTLNIC004_Working_Reproduciably/master) 
