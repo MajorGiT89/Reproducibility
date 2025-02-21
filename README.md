@@ -18,7 +18,9 @@
   -open this and import the YOYGroundfishBiodiv_Data.csv
   - Remember to change your working directory to wherever you stored your files
 3. Run the R code
-  
+
+### If you want more insight into the variables and the original data base structutre consult the "ReadMe2_DataRundown" text file
+
 # Original Data Source and licensing Conditions
 
 #### *licensing*
@@ -36,3 +38,5 @@ Journal of Biogeography 2025
 DOI: 10.1111/jbi.15108
 
 https://dx.doi.org/10.1111/jbi.15108
+
+### *I have added the original publication where the data was sourced from in the file list*
