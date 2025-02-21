@@ -93,3 +93,5 @@ Sd.90 <- odat.long %>%
   group_by(AREA)%>%
   arrange(desc(Dev.MeanSPdiv))
 
+utils::sessionInfo()
+
