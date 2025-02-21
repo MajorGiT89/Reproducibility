@@ -1,10 +1,19 @@
 rm(list = ls())
 
+utils::sessionInfo() #Info on what was used to create and run this session in R
+
 setwd("C:/Users/Admin/Documents/UCT_2025/GIT/Honours-Project")
 
 ### !!! NOTE: use Alt + O to close all folded code sections for easy navigation !!! (use Alt + shft + O to open all) ###
 
-#1 Load Packages---------------------------------------------------------
+### !!! IF YOU HAVE THIS OPEN IN BINDER PLEASE HIGHLIGHT THE ENTIRE CODE SEGMENT BEFORE PRESSING RUN !!! ###
+
+#1 Install and Load Packages---------------------------------------------------------
+
+#Package Installation for when running on binder
+
+install.packages("rio")
+install.packages("tidyverse")
 
 #Load
 
@@ -71,13 +80,14 @@ odat.long <- odat %>%
 
 # GROUPING DATA with Tidyverse functions ----------------------------------
 
+#wolfish CPUE for 2023 for sites and areas
 
-qw <- odat.long %>% 
+Wcpue.2023 <- odat.long %>% 
   filter(Species == "WOLF_EEL", YEAR == c("2023","1990")) %>%
   select(YEAR,STATION,AREA,cpue) %>%
   mutate(CPUE.Mean.deviation = cpue - mean(cpue, na.rm = TRUE))
 
-#Species diversity per area for 1990 v 2023
+#Species diversity per area for 2023
 
 Sd.23 <- odat.long %>% 
   filter(YEAR == c("2023")) %>%
@@ -86,6 +96,8 @@ Sd.23 <- odat.long %>%
   group_by(AREA)%>%
   arrange(desc(Dev.MeanSPdiv))
 
+#Species diversity per area for 1990
+
 Sd.90 <- odat.long %>% 
   filter(YEAR == c("1990")) %>%
   select(AREA,cpue,sdiv) %>%
@@ -93,5 +105,7 @@ Sd.90 <- odat.long %>%
   group_by(AREA)%>%
   arrange(desc(Dev.MeanSPdiv))
 
-utils::sessionInfo()
+#
+
+
 
