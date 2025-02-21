@@ -10,7 +10,6 @@ setwd("C:/Users/Admin/Documents/UCT_2025/GIT/Honours-Project")
 
 library("tidyverse")
 library("rio")
-library("visreg")
 library("gridExtra")
 
 #2 Licencing and Referencing of Source Data ----------------------------------------
