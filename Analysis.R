@@ -6,7 +6,7 @@ setwd("C:/Users/Admin/Documents/UCT_2025/GIT/Honours-Project")
 
 ### !!! NOTE: use Alt + O to close all folded code sections for easy navigation !!! (use Alt + shft + O to open all) ###
 
-### !!! IF YOU OPEN THIS IN BINDER PRESS THE R STUDIO BUTTON (under NOTEBOOK heading) AND THEN SELECT "Analysis.R" under files !!!
+### !!! IF YOU OPEN THIS IN BINDER PRESS THE R STUDIO BUTTON (under NOTEBOOK heading) AND THEN SELECT "Analysis.R" under files !!! ###
 
 ### !!! IF YOU HAVE THIS OPEN IN BINDER (without R studio) PLEASE HIGHLIGHT THE ENTIRE CODE SEGMENT BEFORE PRESSING RUN !!! ###
 
@@ -14,6 +14,7 @@ setwd("C:/Users/Admin/Documents/UCT_2025/GIT/Honours-Project")
 
 #Package Installation for when running on binder
 
+install.packages("patchwork")
 install.packages("rio")
 install.packages("tidyverse")
 
@@ -21,6 +22,7 @@ install.packages("tidyverse")
 
 library("tidyverse")
 library("rio")
+library("patchwork")
 
 #2 Licencing and Referencing of Source Data ----------------------------------------
 
@@ -52,28 +54,13 @@ odat <- import("YOYGroundfishBiodiv_Data.csv")
 
 names <- c(colnames(odat[4:49]))
 
-species_columns <- c("WOLF_EEL", "SABLEFISH", "ARROWTOOTH_FLOUNDER", "PACIFIC_SANDDAB", 
-                     "SPECKLED_SANDDAB", "SCULPIN", "REX_SOLE", "GREENLING", "SLENDER_SOLE", 
-                     "PACIFIC_HAKE", "DOVER_SOLE", "LINGCOD", "PAINTED_GREENLING", 
-                     "RIGHT_EYED_FLATFISH", "TURBOT", "SAND_SOLE", "CABEZON", 
-                     "BROWN_ROCKFISH", "DARKBLOTCHED_ROCKFISH", "CALICO_ROCKFISH", 
-                     "SPLITNOSE_ROCKFISH", "GREENSTRIPED_ROCKFISH", "WIDOW_ROCKFISH", 
-                     "YELLOWTAIL_ROCKFISH", "CHILIPEPPER", "SQUARESPOT_ROCKFISH", 
-                     "SHORTBELLY_ROCKFISH", "COWCOD", "BLACK_ROCKFISH", 
-                     "BLACKGILL_ROCKFISH", "BLUE_ROCKFISH", "BOCACCIO", "CANARY_ROCKFISH", 
-                     "YELLOWMOUTH_ROCKFISH", "YELLOWEYE_ROCKFISH", "BANK_ROCKFISH", 
-                     "STRIPETAIL_ROCKFISH", "HALFBANDED_ROCKFISH", "OLIVE_ROCKFISH", 
-                     "PYGMY_ROCKFISH", "SHARPCHIN_ROCKFISH", "ROCKFISH", 
-                     "ROSY_ROCKFISH_GROUP", "PACIFIC_TOMCOD", "COPPER_ROCKFISH_GROUP", 
-                     "IRISH_LORD")
-
 #2 Removing the first Column - redundant
 # and setting data into long format so that the names of the fish don't appear as column headings - new variable "Species"
 
 odat.long <- odat %>%
   select(-YEAR_STATION) %>%
   pivot_longer(
-    cols = all_of(species_columns),
+    cols = all_of(names),
     names_to = "Species",
     values_to = "Taxon_CPUE(log + 1)"
   )
@@ -94,20 +81,85 @@ Wcpue.2023 <- odat.long %>%
 Sd.23 <- odat.long %>% 
   filter(YEAR == c("2023")) %>%
   select(AREA,cpue,sdiv) %>%
-  mutate(Dev.MeanSPdiv = sdiv - mean(sdiv) )%>%
   group_by(AREA)%>%
-  arrange(desc(Dev.MeanSPdiv))
+  summarise("Mean cpue" = mean(cpue),
+            "SD cpue" = sd(cpue),
+            "Mean sdiv" = mean(sdiv),
+            "SD sdiv" = sd(sdiv))
 
 #Species diversity per area for 1990
 
 Sd.90 <- odat.long %>% 
   filter(YEAR == c("1990")) %>%
   select(AREA,cpue,sdiv) %>%
-  mutate(Dev.MeanSPdiv = sdiv - mean(sdiv) )%>%
   group_by(AREA)%>%
-  arrange(desc(Dev.MeanSPdiv))
+  summarise("Mean cpue" = mean(cpue),
+            "SD cpue" = sd(cpue),
+            "Mean sdiv" = mean(sdiv),
+            "SD sdiv" = sd(sdiv))
 
+#un-summarized data for 1990 cpue by area
+
+Sd.23.unsum <- odat.long %>% 
+  filter(YEAR == c("2023")) %>%
+  select(AREA,cpue,sdiv) %>%
+  group_by(AREA)%>%
+  arrange(cpue)
 #
+sd.23.cpueord <- Sd.23.unsum 
 
+sd.23.cpueord$AREA <- reorder(sd.23.cpueord$AREA, sd.23.cpueord$cpue, FUN = median, decreasing = TRUE)
+#
+#
+sd.23.sdivord <- Sd.23.unsum 
 
+sd.23.sdivord$AREA <- reorder(sd.23.sdivord$AREA, sd.23.sdivord$sdiv, FUN = median, decreasing = TRUE)
+#
+Sd.90.unsum <- odat.long %>% 
+  filter(YEAR == c("1990")) %>%
+  select(AREA,cpue,sdiv) %>%
+  group_by(AREA)%>%
+  arrange(cpue)
+#
+sd.90.cpueord <- Sd.90.unsum 
 
+sd.90.cpueord$AREA <- reorder(sd.90.cpueord$AREA, sd.90.cpueord$cpue, FUN = median, decreasing = TRUE)
+#
+#
+sd.90.sdivord <- Sd.90.unsum 
+
+sd.90.sdivord$AREA <- reorder(sd.90.sdivord$AREA, sd.90.sdivord$sdiv, FUN = median, decreasing = TRUE)
+#
+#6 plots from grouped data  ---------------------------------------------------
+
+bp1.Avcpue23 <- ggplot(sd.23.cpueord,aes(x=AREA,cpue))+
+  geom_boxplot(fill="slateblue", alpha=0.2)+ 
+  xlab("AREA") + ylab("CPUE") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(panel.grid.major = element_blank())
+
+bp2.Avsdiv23 <- ggplot(sd.23.sdivord,aes(x=AREA,sdiv))+
+  geom_boxplot(fill="slateblue", alpha=0.2)+ 
+  xlab("AREA") + ylab("Species Diversity Index") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(panel.grid.major = element_blank())
+
+           ---###---
+
+bp3.Avcpue90 <- ggplot(sd.90.cpueord,aes(x=AREA,cpue))+
+  geom_boxplot(fill="slateblue", alpha=0.2)+ 
+  xlab("AREA") + ylab("CPUE") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(panel.grid.major = element_blank())
+
+bp4.Avsdiv90 <- ggplot(sd.90.sdivord,aes(x=AREA,sdiv))+
+  geom_boxplot(fill="slateblue", alpha=0.2)+ 
+  xlab("AREA") + ylab("Species diversity Index") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(panel.grid.major = element_blank())
+
+#Plotting 
+
+bp1.Avcpue23 + bp2.Avsdiv23 #2023 cpue and sdiv
+
+bp3.Avcpue90 + bp4.Avsdiv90 #1190 cpue and sdiv
