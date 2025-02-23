@@ -21,7 +21,7 @@ ONCE BINDER IS OPEN PRESS THE R STUDIO BUTTON (under NOTEBOOK heading) AND THEN 
 
 This will allow you to run the entire code and generate figures without needing to download anything 
 
-You can also open the 'Analysis-Markdown-for-Repo-project.Rmd' RMarkdown file and press knit to generate the pdf document
+You can also open the 'Analysis-Markdown-for-Repo-project.Rmd' RMarkdown file and press knit to generate the html document
 
 ### *OR*
 
