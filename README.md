@@ -2,12 +2,6 @@
 
 ##### "Juvenile Groundfish Assemblages in the California Current" - (Gasbarro et al., 2025)
 
-## *Use*
-
-- Data Sharing
-- Workflow Automation
-- Data Analysis reproducibility Exercise
-
 ## How to use this repo
 
 #### !First things first!
@@ -32,7 +26,7 @@ You can also open the 'Analysis-Markdown-for-Repo-project' RMarkdown file and pr
 ### *OR*
 
 Download and open the html file labelled 'Analysis-Markdown-for-Repo-project' to get a summary of the code used to generate the figures as well as the figures themselves 
-
+#
 # DATA NOTE
 
 ### If you want more insight into the variables and the original data base structutre consult the "ReadMe2_DataRundown" text file
