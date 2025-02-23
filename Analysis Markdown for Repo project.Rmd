@@ -131,17 +131,10 @@ bp3.Avcpue90 + bp4.Avsdiv90 #1990 cpue and sdiv
 
 Sd.year <- odat.long %>% 
   select(YEAR,sdiv) %>%
-  group_by(YEAR)%>%
-  arrange(sdiv)
-
-#re-order 
-
-Sd.year.1 <- Sd.year
-
-Sd.year.1$YEAR <- reorder(Sd.year.1$YEAR, Sd.year.1$sdiv,FUN = median, decreasing = TRUE)
+  group_by(YEAR)
 
 #plot
-Avgsdiv.year <- ggplot(Sd.year.1,aes(x=YEAR,sdiv))+
+Avgsdiv.year <- ggplot(Sd.year,aes(x=YEAR,sdiv, group = YEAR))+
   geom_boxplot(fill="slateblue", alpha=0.2)+ 
   xlab("YEAR") + ylab("Species Diversity Index") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
