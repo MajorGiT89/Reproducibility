@@ -96,34 +96,37 @@ Sd.90 <- odat.long %>%
             "Mean sdiv" = mean(sdiv),
             "SD sdiv" = sd(sdiv))
 
-#un-summarized data for 1990 cpue by area
+#un-summarized data for 2023 cpue and sdiv by area
 
 Sd.23.unsum <- odat.long %>% 
   filter(YEAR == c("2023")) %>%
   select(AREA,cpue,sdiv) %>%
   group_by(AREA)%>%
   arrange(cpue)
-#
+#re-rodering by highest to lowest median cpue
 sd.23.cpueord <- Sd.23.unsum 
 
 sd.23.cpueord$AREA <- reorder(sd.23.cpueord$AREA, sd.23.cpueord$cpue, FUN = median, decreasing = TRUE)
 #
-#
+#re-rodering by highest to lowest median sdiv
 sd.23.sdivord <- Sd.23.unsum 
 
 sd.23.sdivord$AREA <- reorder(sd.23.sdivord$AREA, sd.23.sdivord$sdiv, FUN = median, decreasing = TRUE)
 #
+
+#un-summarized data for 1990 cpue and sdiv by area
+
 Sd.90.unsum <- odat.long %>% 
   filter(YEAR == c("1990")) %>%
   select(AREA,cpue,sdiv) %>%
   group_by(AREA)%>%
   arrange(cpue)
-#
+#re-rodering by highest to lowest median cpue
 sd.90.cpueord <- Sd.90.unsum 
 
 sd.90.cpueord$AREA <- reorder(sd.90.cpueord$AREA, sd.90.cpueord$cpue, FUN = median, decreasing = TRUE)
 #
-#
+#re-rodering by highest to lowest median sdiv
 sd.90.sdivord <- Sd.90.unsum 
 
 sd.90.sdivord$AREA <- reorder(sd.90.sdivord$AREA, sd.90.sdivord$sdiv, FUN = median, decreasing = TRUE)
@@ -142,13 +145,15 @@ bp2.Avsdiv23 <- ggplot(sd.23.sdivord,aes(x=AREA,sdiv))+
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   theme(panel.grid.major = element_blank())
 
-           ---###---
+##
 
-bp3.Avcpue90 <- ggplot(sd.90.cpueord,aes(x=AREA,cpue))+
+  
+bp3.Avcpue90 <-  ggplot(sd.90.cpueord,aes(x=AREA,cpue))+
   geom_boxplot(fill="slateblue", alpha=0.2)+ 
   xlab("AREA") + ylab("CPUE") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   theme(panel.grid.major = element_blank())
+
 
 bp4.Avsdiv90 <- ggplot(sd.90.sdivord,aes(x=AREA,sdiv))+
   geom_boxplot(fill="slateblue", alpha=0.2)+ 
@@ -160,4 +165,30 @@ bp4.Avsdiv90 <- ggplot(sd.90.sdivord,aes(x=AREA,sdiv))+
 
 bp1.Avcpue23 + bp2.Avsdiv23 #2023 cpue and sdiv
 
-bp3.Avcpue90 + bp4.Avsdiv90 #1190 cpue and sdiv
+bp3.Avcpue90 + bp4.Avsdiv90 #1990 cpue and sdiv
+
+
+#7 Mean SDI / yeaar ------------------------------
+
+#create tibble for plot
+
+Sd.year <- odat.long %>% 
+  select(YEAR,sdiv) %>%
+  group_by(YEAR)%>%
+  arrange(sdiv)
+
+#re-order 
+
+Sd.year.1 <- Sd.year
+
+Sd.year.1$YEAR <- reorder(Sd.year.1$YEAR, Sd.year.1$sdiv,FUN = median, decreasing = TRUE)
+
+#plot
+
+Avgsdiv.year <- ggplot(Sd.year.1,aes(x=YEAR,sdiv))+
+  geom_boxplot(fill="slateblue", alpha=0.2)+ 
+  xlab("YEAR") + ylab("Species Diversity Index") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(panel.grid.major = element_blank())
+
+Avgsdiv.year
