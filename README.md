@@ -21,7 +21,7 @@
 
  ### *OR*
  
-Use the button at the bottom of this document to open the Repo on a virtual machine using Binder under ["Open this repo on a virtual machine"]
+Use the button at the bottom of this document to open the Repo on a virtual machine using Binder under the text ["Open this repo on a virtual machine"](Original Data Source and licensing Conditions)
  
 ONCE BINDER IS OPEN PRESS THE R STUDIO BUTTON (under NOTEBOOK heading) AND THEN SELECT "Analysis.R" under files 
 
@@ -49,6 +49,6 @@ https://dx.doi.org/10.1111/jbi.15108
 
 ### *I have included the original publication where the data was sourced from in the file list*
 
-### _Open this repo on a virtual machine_
+_Open this repo on a virtual machine_
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MajorGiT89/VTLNIC004_Working_Reproduciably/HEAD)
