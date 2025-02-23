@@ -6,8 +6,6 @@ setwd("C:/Users/Admin/Documents/UCT_2025/GIT/Honours-Project")
 
 ### !!! NOTE: use Alt + O to close all folded code sections for easy navigation !!! (use Alt + shft + O to open all) ###
 
-### !!! IF YOU OPEN THIS IN BINDER PRESS THE R STUDIO BUTTON (under NOTEBOOK heading) AND THEN SELECT "Analysis.R" under files !!! ###
-
 ### !!! IF YOU HAVE THIS OPEN IN BINDER (without R studio) PLEASE HIGHLIGHT THE ENTIRE CODE SEGMENT BEFORE PRESSING RUN !!! ###
 
 #1 Install and Load Packages---------------------------------------------------------
