@@ -19,13 +19,19 @@
   - Remember to change your working directory to wherever you stored your files
 3. Run the R code
 
- ### *OR*
+### *OR*
  
 Use the button at the bottom of this document to open the Repo on a virtual machine using Binder
  
 ONCE BINDER IS OPEN PRESS THE R STUDIO BUTTON (under NOTEBOOK heading) AND THEN SELECT "Analysis.R" under files 
 
-This will allow you to run the entire code and generate figures without needing to download anything
+This will allow you to run the entire code and generate figures without needing to download anything 
+
+You can also open the 'Analysis-Markdown-for-Repo-project' RMarkdown file and press knit to generate the pdf document
+
+### *OR*
+
+Download and open the html file labelled 'Analysis-Markdown-for-Repo-project' to get a summary of the code used to generate the figures as well as the figures themselves 
 
 ### If you want more insight into the variables and the original data base structutre consult the "ReadMe2_DataRundown" text file
 
