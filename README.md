@@ -21,7 +21,7 @@
 
  ### *OR*
  
-Use the button at the bottom of this document to open the Repo on a virtual machine using Binder under the text ["Open this repo on a virtual machine"](Original Data Source and licensing Conditions)
+Use the button at the bottom of this document to open the Repo on a virtual machine using Binder
  
 ONCE BINDER IS OPEN PRESS THE R STUDIO BUTTON (under NOTEBOOK heading) AND THEN SELECT "Analysis.R" under files 
 
