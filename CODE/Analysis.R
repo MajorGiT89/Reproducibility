@@ -1,6 +1,6 @@
-rm(list = ls())
-
 utils::sessionInfo() #Info on what was used to create and run this session in R
+
+rm(list = ls())
 
 setwd("C:/Users/Admin/Documents/UCT_2025/GIT/Reproducibility/CODE")
 
@@ -42,7 +42,7 @@ library("patchwork")
 
  #Use of Rio package
 
-odat <- import("C:/Users/Admin/Documents/UCT_2025/GIT/Reproducibility/DATA/YOYGroundfishBiodiv_Data.csv")
+odat <- import("YOYGroundfishBiodiv_Data.csv")
 
 #4 Data Cleaning Process --------------------------------------------------------------
 
