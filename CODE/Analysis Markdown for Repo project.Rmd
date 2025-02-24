@@ -1,0 +1,149 @@
+---
+title: "Analysis report for reproducibility project"
+output: html_document
+date: "2025-02-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Purpose of this document 
+
+This markdown file serves as an easy way to run some of the code (only that used to produce the plots) for the 2025 honors reproducibility project.
+
+Below are some of the files required to run the analysis (tidyverse,rio,patchwork)
+
+```{r load packages,echo=FALSE}
+library("tidyverse")
+library("rio")
+library("patchwork")
+```
+
+## Loading and cleaning the data
+
+The code below transforms the original data into long format by creating a new variable called species which includes coloumns 4 to 49 in the original database.
+
+```{r data loading}
+odat <- import("YOYGroundfishBiodiv_Data.csv")
+
+names <- c(colnames(odat[4:49]))
+
+odat.long <- odat %>%
+  select(-YEAR_STATION) %>%
+  pivot_longer(
+    cols = all_of(names),
+    names_to = "Species",
+    values_to = "Taxon_CPUE(log + 1)"
+  )
+
+```
+
+## Tibbles for creating the first plots
+
+```{r data creating the summaries for the first plots}
+
+#un-summarized data for 2023 cpue and sdiv by area
+Sd.23.unsum <- odat.long %>% 
+  filter(YEAR == c("2023")) %>%
+  select(AREA,cpue,sdiv) %>%
+  group_by(AREA)%>%
+  arrange(cpue)
+#re-rodering by highest to lowest median cpue
+sd.23.cpueord <- Sd.23.unsum 
+
+sd.23.cpueord$AREA <- reorder(sd.23.cpueord$AREA, sd.23.cpueord$cpue, FUN = median, decreasing = TRUE)
+#
+#re-rodering by highest to lowest median sdiv
+sd.23.sdivord <- Sd.23.unsum 
+
+sd.23.sdivord$AREA <- reorder(sd.23.sdivord$AREA, sd.23.sdivord$sdiv, FUN = median, decreasing = TRUE)
+#
+
+#un-summarized data for 1990 cpue and sdiv by area
+
+Sd.90.unsum <- odat.long %>% 
+  filter(YEAR == c("1990")) %>%
+  select(AREA,cpue,sdiv) %>%
+  group_by(AREA)%>%
+  arrange(cpue)
+#re-rodering by highest to lowest median cpue
+sd.90.cpueord <- Sd.90.unsum 
+
+sd.90.cpueord$AREA <- reorder(sd.90.cpueord$AREA, sd.90.cpueord$cpue, FUN = median, decreasing = TRUE)
+#
+#re-rodering by highest to lowest median sdiv
+sd.90.sdivord <- Sd.90.unsum 
+
+sd.90.sdivord$AREA <- reorder(sd.90.sdivord$AREA, sd.90.sdivord$sdiv, FUN = median, decreasing = TRUE)
+#
+```
+
+## The first plots - Summarising the data
+
+```{r data  the first plots}
+bp1.Avcpue23 <- ggplot(sd.23.cpueord,aes(x=AREA,cpue))+
+  geom_boxplot(fill="slateblue", alpha=0.2)+ 
+  xlab("AREA") + ylab("CPUE") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(panel.grid.major = element_blank())
+
+bp2.Avsdiv23 <- ggplot(sd.23.sdivord,aes(x=AREA,sdiv))+
+  geom_boxplot(fill="slateblue", alpha=0.2)+ 
+  xlab("AREA") + ylab("Species Diversity Index") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(panel.grid.major = element_blank())
+
+##
+
+  
+bp3.Avcpue90 <-  ggplot(sd.90.cpueord,aes(x=AREA,cpue))+
+  geom_boxplot(fill="slateblue", alpha=0.2)+ 
+  xlab("AREA") + ylab("CPUE") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(panel.grid.major = element_blank())
+
+
+bp4.Avsdiv90 <- ggplot(sd.90.sdivord,aes(x=AREA,sdiv))+
+  geom_boxplot(fill="slateblue", alpha=0.2)+ 
+  xlab("AREA") + ylab("Species diversity Index") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(panel.grid.major = element_blank())
+
+```
+
+## The Plots - CPUE and SPECIES DIVERSITY INDEX - 2023 and 1990
+
+#### 2023
+```{r plot1,echo=FALSE}
+bp1.Avcpue23 + bp2.Avsdiv23 #2023 cpue and sdiv
+```
+
+
+#### 1990
+```{r plot2,echo=FALSE}
+bp3.Avcpue90 + bp4.Avsdiv90 #1990 cpue and sdiv
+```
+
+## Tibbles for plot of species diversity index per year 
+```{r plot3}
+#create tibble for plot
+
+Sd.year <- odat.long %>% 
+  select(YEAR,sdiv) %>%
+  group_by(YEAR)
+
+#plot
+Avgsdiv.year <- ggplot(Sd.year,aes(x=YEAR,sdiv, group = YEAR))+
+  geom_boxplot(fill="slateblue", alpha=0.2)+ 
+  xlab("YEAR") + ylab("Species Diversity Index") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(panel.grid.major = element_blank())
+```
+
+## Plots - Species diversity index per year 
+
+```{r plots4 ,echo=FALSE}
+#plot
+Avgsdiv.year
+```
