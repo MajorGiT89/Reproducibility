@@ -40,7 +40,9 @@ library("patchwork")
 
  #Use of Rio package
 
-odat<- read_csv("YOYGroundfishBiodiv_Data.csv")
+odat<- read_csv("YOYGroundfishBiodiv_Data.csv") #USE THIS WHEN IN R DESKTOP
+
+odat<- read_csv("CODE/YOYGroundfishBiodiv_Data.csv") #USE THIS WHEN IN BINDER
 
 #4 Data Cleaning Process --------------------------------------------------------------
 
