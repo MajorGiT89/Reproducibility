@@ -25,7 +25,7 @@ library("patchwork")
 The code below transforms the original data into long format by creating a new variable called species which includes coloumns 4 to 49 in the original database.
 
 ```{r data loading}
-odat <- import("C:/Users/Admin/Documents/UCT_2025/GIT/Reproducibility/DATA/YOYGroundfishBiodiv_Data.csv")
+odat <- import("YOYGroundfishBiodiv_Data.csv")
 
 names <- c(colnames(odat[4:49]))
 
