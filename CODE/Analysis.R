@@ -13,13 +13,11 @@ setwd("C:/Users/Admin/Documents/UCT_2025/GIT/Reproducibility/CODE")
 #Package Installation for when running on binder
 
 install.packages("patchwork")
-install.packages("rio")
 install.packages("tidyverse")
 
 #Load
 
 library("tidyverse")
-library("rio")
 library("patchwork")
 
 #2 Licencing and Referencing of Source Data ----------------------------------------
@@ -42,7 +40,7 @@ library("patchwork")
 
  #Use of Rio package
 
-odat <- import("YOYGroundfishBiodiv_Data.csv")
+odat<- read_csv("YOYGroundfishBiodiv_Data.csv")
 
 #4 Data Cleaning Process --------------------------------------------------------------
 
