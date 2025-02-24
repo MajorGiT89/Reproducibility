@@ -61,4 +61,4 @@ https://dx.doi.org/10.1111/jbi.15108
 #
 _Open this repo on a virtual machine_
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MajorGiT89/VTLNIC004_Working_Reproduciably/HEAD)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://github.com/MajorGiT89/Reproducibility/tree/Trial-Structure)
