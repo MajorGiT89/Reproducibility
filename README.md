@@ -7,9 +7,8 @@
 #### !First things first!
 ##### *I DON'T OWN THE DATA* - _refer to the end of this document to find the original source and cite that if you use the data for your own work_
 #
-1. Download the YOYGroundfishBiodiv_Data.csv
-2. Download the R Script - Analysis.R
-  -open this and import the YOYGroundfishBiodiv_Data.csv
+1. Download the "YOYGroundfishBiodiv_Data.csv" in the *DATA folder*
+2. Download the R Script - Analysis.R - in the *CODE folder*
   - Remember to change your working directory to wherever you stored your files
 3. Run the R code
 
@@ -17,17 +16,17 @@
  
 Use the button at the bottom of this document to open the Repo on a virtual machine using Binder
  
-ONCE BINDER IS OPEN PRESS THE R STUDIO BUTTON (under NOTEBOOK heading) AND THEN SELECT "Analysis.R" under files 
+ONCE BINDER IS OPEN PRESS THE R STUDIO BUTTON (under NOTEBOOK heading) AND THEN SELECT "Analysis.R" in the *CODE folder*
 
 This will allow you to run the entire code and generate figures without needing to download anything 
 
-You can also open the 'Analysis-Markdown-for-Repo-project.Rmd' RMarkdown file and press knit to generate the html document - *_if you do this, first open the analysis file and run the code to install the required packages or it will not work_*
+You can also open the 'Analysis-Markdown-for-Repo-project.Rmd' (CODE folder) RMarkdown file and press knit to generate the html document - *_if you do this, first open the analysis file and run the code to install the required packages or it will not work_*
 
 ### *OR*
 
-Download and open the html file labelled 'Analysis-Markdown-for-Repo-project.html' to get a summary of the code used to generate the figures as well as the figures themselves
+Download and open the html file labelled 'Analysis-Markdown-for-Repo-project.html' (*OUTPUT* folder) to get a summary of the code used to generate the figures as well as the figures themselves
 
-1.click on Analysis-Markdown-for-Repo-project.html
+1.click on Analysis-Markdown-for-Repo-project.html - (*OUTPUT* folder)
 
 2.In the top right (same line as where you see CODE/BLAME) find the download button
 
@@ -61,4 +60,4 @@ https://dx.doi.org/10.1111/jbi.15108
 #
 _Open this repo on a virtual machine_
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MajorGiT89/VTLNIC004_Working_Reproduciably/HEAD)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MajorGiT89/Reproducibility)
