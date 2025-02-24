@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This markdown file serves as an easy way to run some of the code (only that used to produce the plots) for the 2025 honors reproducibility project.
 
-Below are some of the files required to run the analysis (tidyverse,rio,patchwork)
+Below are some of the files required to run the analysis (tidyverse,patchwork)
 
 ```{r load packages,echo=FALSE}
 library("tidyverse")
