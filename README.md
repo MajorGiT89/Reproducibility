@@ -25,8 +25,12 @@ You can also open the 'Analysis-Markdown-for-Repo-project.Rmd' RMarkdown file an
 
 ### *OR*
 
-Download and open the html file labelled 'Analysis-Markdown-for-Repo-project.html' to get a summary of the code used to generate the figures as well as the figures themselves 1.click on Analysis-Markdown-for-Repo-project.html
+Download and open the html file labelled 'Analysis-Markdown-for-Repo-project.html' to get a summary of the code used to generate the figures as well as the figures themselves
+
+1.click on Analysis-Markdown-for-Repo-project.html
+
 2.In the top right (same line as where you see CODE/BLAME) find the download button
+
 3.Open the file in your web browser
 
 #
