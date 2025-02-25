@@ -52,9 +52,16 @@ For further details on the variables and the original data structure, consult th
 The data is provided under the Creative Commons Attribution 4.0 International License.
 
 ### Citation for Data Source
-**Gasbarro, R., Santora, J. A., Cimino, M., Schonfeld, A., Bograd, S. J., Hazen, E. L., et al. (2025). Composition and Functional Diversity of Juvenile Groundfish Assemblages in the California Current. *Journal of Biogeography*.**  
-DOI: [10.1111/jbi.15108](https://dx.doi.org/10.1111/jbi.15108)
 
+Composition and Functional Diversity of Juvenile Groundfish Assemblages in the California Current
+
+R. Gasbarro, J. A. Santora, M. Cimino, A. Schonfeld, S. J. Bograd, E. L. Hazen, et al.
+
+Journal of Biogeography 2025
+
+DOI: 10.1111/jbi.15108
+
+https://dx.doi.org/10.1111/jbi.15108
 *(The original publication from which the data is sourced is included in the file list.)*
 
 ---
