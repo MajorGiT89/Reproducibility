@@ -1,148 +1,154 @@
+
 ---
-title: "Analysis report for reproducibility project"
+title: "Analysis Report for Reproducibility Project"
 output: html_document
 date: "2025-02-23"
 ---
 
 ```{r setup, include=FALSE}
+# Set up chunk options globally for the entire document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Purpose of this document 
+## Purpose of this Document
 
-This markdown file serves as an easy way to run some of the code (only that used to produce the plots) for the 2025 honors reproducibility project.
+This markdown file allows you to easily run the code that generates plots for the 2025 honors reproducibility project. The necessary packages for the analysis are listed below.
 
-Below are some of the files required to run the analysis (tidyverse,patchwork)
-
-```{r load packages,echo=FALSE}
+```{r load_packages, echo=FALSE}
+# Load the required libraries for the analysis
 library("tidyverse")
 library("patchwork")
 ```
 
-## Loading and cleaning the data
+## Loading and Cleaning the Data
 
-The code below transforms the original data into long format by creating a new variable called species which includes coloumns 4 to 49 in the original database.
+The following code transforms the original data into long format and creates a new variable called `Species`, which includes columns 4 to 49 from the original database.
 
-```{r data loading}
-odat<- read_csv("YOYGroundfishBiodiv_Data.csv")
+```{r load_data}
+# Load the original data
+odat <- read_csv("YOYGroundfishBiodiv_Data.csv")
 
-names <- c(colnames(odat[4:49]))
+# Define the column names for species data
+species_columns <- colnames(odat[4:49])
 
-odat.long <- odat %>%
+# Transform the data into long format
+odat_long <- odat %>%
   select(-YEAR_STATION) %>%
   pivot_longer(
-    cols = all_of(names),
+    cols = all_of(species_columns),
     names_to = "Species",
     values_to = "Taxon_CPUE(log + 1)"
   )
-
 ```
 
-## Tibbles for creating the first plots
+## Preparing Data for Plots
 
-```{r data creating the summaries for the first plots}
+The code below prepares the data by summarizing CPUE and Species Diversity Index (sdiv) for 2023 and 1990. The data is reordered by the median CPUE and sdiv values.
 
-#un-summarized data for 2023 cpue and sdiv by area
-Sd.23.unsum <- odat.long %>% 
-  filter(YEAR == c("2023")) %>%
-  select(AREA,cpue,sdiv) %>%
-  group_by(AREA)%>%
+### Un-Summarized Data for 2023 (CPUE and sdiv by Area)
+
+```{r data_2023}
+# Filter and organize 2023 data
+sd_23_unsum <- odat_long %>% 
+  filter(YEAR == "2023") %>%
+  select(AREA, cpue, sdiv) %>%
+  group_by(AREA) %>%
   arrange(cpue)
-#re-rodering by highest to lowest median cpue
-sd.23.cpueord <- Sd.23.unsum 
 
-sd.23.cpueord$AREA <- reorder(sd.23.cpueord$AREA, sd.23.cpueord$cpue, FUN = median, decreasing = TRUE)
-#
-#re-rodering by highest to lowest median sdiv
-sd.23.sdivord <- Sd.23.unsum 
+# Reorder areas by median CPUE
+sd_23_cpue_ordered <- sd_23_unsum
+sd_23_cpue_ordered$AREA <- reorder(sd_23_cpue_ordered$AREA, sd_23_cpue_ordered$cpue, FUN = median, decreasing = TRUE)
 
-sd.23.sdivord$AREA <- reorder(sd.23.sdivord$AREA, sd.23.sdivord$sdiv, FUN = median, decreasing = TRUE)
-#
+# Reorder areas by median sdiv
+sd_23_sdiv_ordered <- sd_23_unsum
+sd_23_sdiv_ordered$AREA <- reorder(sd_23_sdiv_ordered$AREA, sd_23_sdiv_ordered$sdiv, FUN = median, decreasing = TRUE)
+```
 
-#un-summarized data for 1990 cpue and sdiv by area
+### Un-Summarized Data for 1990 (CPUE and sdiv by Area)
 
-Sd.90.unsum <- odat.long %>% 
-  filter(YEAR == c("1990")) %>%
-  select(AREA,cpue,sdiv) %>%
-  group_by(AREA)%>%
+```{r data_1990}
+# Filter and organize 1990 data
+sd_90_unsum <- odat_long %>% 
+  filter(YEAR == "1990") %>%
+  select(AREA, cpue, sdiv) %>%
+  group_by(AREA) %>%
   arrange(cpue)
-#re-rodering by highest to lowest median cpue
-sd.90.cpueord <- Sd.90.unsum 
 
-sd.90.cpueord$AREA <- reorder(sd.90.cpueord$AREA, sd.90.cpueord$cpue, FUN = median, decreasing = TRUE)
-#
-#re-rodering by highest to lowest median sdiv
-sd.90.sdivord <- Sd.90.unsum 
+# Reorder areas by median CPUE
+sd_90_cpue_ordered <- sd_90_unsum
+sd_90_cpue_ordered$AREA <- reorder(sd_90_cpue_ordered$AREA, sd_90_cpue_ordered$cpue, FUN = median, decreasing = TRUE)
 
-sd.90.sdivord$AREA <- reorder(sd.90.sdivord$AREA, sd.90.sdivord$sdiv, FUN = median, decreasing = TRUE)
-#
+# Reorder areas by median sdiv
+sd_90_sdiv_ordered <- sd_90_unsum
+sd_90_sdiv_ordered$AREA <- reorder(sd_90_sdiv_ordered$AREA, sd_90_sdiv_ordered$sdiv, FUN = median, decreasing = TRUE)
 ```
 
-## The first plots - Summarising the data
+## Plotting the Data
 
-```{r data  the first plots}
-bp1.Avcpue23 <- ggplot(sd.23.cpueord,aes(x=AREA,cpue))+
-  geom_boxplot(fill="slateblue", alpha=0.2)+ 
-  xlab("AREA") + ylab("CPUE") +
+### Boxplots for CPUE and Species Diversity Index for 2023 and 1990
+
+```{r plot_2023}
+# Plot for CPUE (2023)
+bp1_avcpue_23 <- ggplot(sd_23_cpue_ordered, aes(x = AREA, cpue)) +
+  geom_boxplot(fill = "slateblue", alpha = 0.2) +
+  labs(x = "AREA", y = "CPUE") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   theme(panel.grid.major = element_blank())
 
-bp2.Avsdiv23 <- ggplot(sd.23.sdivord,aes(x=AREA,sdiv))+
-  geom_boxplot(fill="slateblue", alpha=0.2)+ 
-  xlab("AREA") + ylab("Species Diversity Index") +
+# Plot for Species Diversity Index (2023)
+bp2_avsdiv_23 <- ggplot(sd_23_sdiv_ordered, aes(x = AREA, sdiv)) +
+  geom_boxplot(fill = "slateblue", alpha = 0.2) +
+  labs(x = "AREA", y = "Species Diversity Index") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(panel.grid.major = element_blank())
+```
+
+```{r plot_1990}
+# Plot for CPUE (1990)
+bp3_avcpue_90 <- ggplot(sd_90_cpue_ordered, aes(x = AREA, cpue)) +
+  geom_boxplot(fill = "slateblue", alpha = 0.2) +
+  labs(x = "AREA", y = "CPUE") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   theme(panel.grid.major = element_blank())
 
-##
-
-  
-bp3.Avcpue90 <-  ggplot(sd.90.cpueord,aes(x=AREA,cpue))+
-  geom_boxplot(fill="slateblue", alpha=0.2)+ 
-  xlab("AREA") + ylab("CPUE") +
+# Plot for Species Diversity Index (1990)
+bp4_avsdiv_90 <- ggplot(sd_90_sdiv_ordered, aes(x = AREA, sdiv)) +
+  geom_boxplot(fill = "slateblue", alpha = 0.2) +
+  labs(x = "AREA", y = "Species Diversity Index") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   theme(panel.grid.major = element_blank())
-
-
-bp4.Avsdiv90 <- ggplot(sd.90.sdivord,aes(x=AREA,sdiv))+
-  geom_boxplot(fill="slateblue", alpha=0.2)+ 
-  xlab("AREA") + ylab("Species diversity Index") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  theme(panel.grid.major = element_blank())
-
 ```
 
-## The Plots - CPUE and SPECIES DIVERSITY INDEX - 2023 and 1990
+### Displaying the Plots for 2023 and 1990
 
-#### 2023
-```{r plot1,echo=FALSE}
-bp1.Avcpue23 + bp2.Avsdiv23 #2023 cpue and sdiv
+```{r display_plots}
+# Combine 2023 plots (CPUE and sdiv)
+bp1_avcpue_23 + bp2_avsdiv_23  # 2023 CPUE and Species Diversity Index
+
+# Combine 1990 plots (CPUE and sdiv)
+bp3_avcpue_90 + bp4_avsdiv_90  # 1990 CPUE and Species Diversity Index
 ```
 
+## Species Diversity Index per Year
 
-#### 1990
-```{r plot2,echo=FALSE}
-bp3.Avcpue90 + bp4.Avsdiv90 #1990 cpue and sdiv
-```
-
-## Tibbles for plot of species diversity index per year 
-```{r plot3}
-#create tibble for plot
-
-Sd.year <- odat.long %>% 
-  select(YEAR,sdiv) %>%
+```{r data_species_diversity_per_year}
+# Prepare the data for species diversity index per year
+sd_year <- odat_long %>% 
+  select(YEAR, sdiv) %>%
   group_by(YEAR)
 
-#plot
-Avgsdiv.year <- ggplot(Sd.year,aes(x=YEAR,sdiv, group = YEAR))+
-  geom_boxplot(fill="slateblue", alpha=0.2)+ 
-  xlab("YEAR") + ylab("Species Diversity Index") +
+# Create the plot for species diversity index per year
+avg_sdiv_year <- ggplot(sd_year, aes(x = YEAR, sdiv, group = YEAR)) +
+  geom_boxplot(fill = "slateblue", alpha = 0.2) +
+  labs(x = "YEAR", y = "Species Diversity Index") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   theme(panel.grid.major = element_blank())
 ```
 
-## Plots - Species diversity index per year 
+### Plot for Species Diversity Index per Year
 
-```{r plots4 ,echo=FALSE}
-#plot
-Avgsdiv.year
+```{r display_avg_sdiv_year, echo=FALSE}
+# Display the species diversity index per year plot
+avg_sdiv_year
 ```
+
