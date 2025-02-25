@@ -42,7 +42,7 @@ You can download the `Analysis-Markdown-for-Repo-project.html` file from the *OU
 
 ## Data Notes
 
-For further details on the variables and the original data structure, consult the `ReadMe2_DataRundown.txt` file.
+For further details on the variables and the original data structure, consult the `ReadMe2_DataRundown.txt` file (OUTPUT folder).
 
 ---
 
