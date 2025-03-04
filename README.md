@@ -62,7 +62,7 @@ Journal of Biogeography 2025
 DOI: 10.1111/jbi.15108
 
 https://dx.doi.org/10.1111/jbi.15108
-*(The original publication from which the data is sourced is included in the file list.)*
+
 
 ---
 
